@@ -28,11 +28,26 @@ async function run() {
         // const allToyCollection = client.db("Toytopia").collection("AllToys");
 
 
-        // app.get("/gallery-one", async (req, res) => {
-        //     const cursor = galleryCollectionOne.find();
-        //     const result = await cursor.toArray();
-        //     res.send(result);
-        // })
+        app.get("/instructors", async (req, res) => {
+            const query = { role: "instructor" };
+            const cursor = userCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
+        app.get("/users", async (req, res) => {
+            const query = { role: "user" };
+            const cursor = userCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
+        app.get("/admins", async (req, res) => {
+            const query = { role: "admin" };
+            const cursor = userCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
 
         // app.get("/gallery-two", async (req, res) => {
         //     const cursor = galleryCollectionTwo.find();
