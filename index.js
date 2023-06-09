@@ -24,6 +24,7 @@ async function run() {
         client.connect();
 
         const userCollection = client.db("Euphoria").collection("userCollection");
+        const classesCollection = client.db("Euphoria").collection("classes");
         // const galleryCollectionTwo = client.db("Toytopia").collection("galleryTwo");
         // const allToyCollection = client.db("Toytopia").collection("AllToys");
 
@@ -49,6 +50,13 @@ async function run() {
             res.send(result);
         });
 
+        app.get("/classes", async (req, res) => {
+            const query = { status: "approved" };
+            const cursor = classesCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
         // app.get("/gallery-two", async (req, res) => {
         //     const cursor = galleryCollectionTwo.find();
         //     const result = await cursor.toArray();
@@ -70,9 +78,9 @@ async function run() {
 
         app.post("/users", async (req, res) => {
             const newUser = req.body;
-            const query = {email : newUser.email};
+            const query = { email: newUser.email };
             const existingUser = await userCollection.findOne(query);
-            if(existingUser){
+            if (existingUser) {
                 return;
             }
             const result = await userCollection.insertOne(newUser);
