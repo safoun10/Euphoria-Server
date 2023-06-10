@@ -58,6 +58,11 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
+        app.get("/all-classes", async (req, res) => {
+            const cursor = classesCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        });
 
         // app.get("/gallery-two", async (req, res) => {
         //     const cursor = galleryCollectionTwo.find();
@@ -91,7 +96,7 @@ async function run() {
 
         app.post("/classes", async (req, res) => {
             const newClass = req.body;
-            if(newClass == {}){
+            if (newClass == {}) {
                 return;
             }
             const result = await classesCollection.insertOne(newClass);
