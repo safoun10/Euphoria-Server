@@ -10,7 +10,6 @@ app.use(express.json());
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@safoundb.d2yflbg.mongodb.net/?retryWrites=true&w=majority`;
 
-
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -25,7 +24,6 @@ async function run() {
 
         const userCollection = client.db("Euphoria").collection("userCollection");
         const classesCollection = client.db("Euphoria").collection("classes");
-
 
         app.get("/all-users", async (req, res) => {
             const cursor = userCollection.find();
@@ -88,6 +86,15 @@ async function run() {
                 return;
             }
             const result = await userCollection.insertOne(newUser);
+            res.send(result);
+        })
+
+        app.post("/classes", async (req, res) => {
+            const newClass = req.body;
+            if(newClass == {}){
+                return;
+            }
+            const result = await classesCollection.insertOne(newClass);
             res.send(result);
         })
 
