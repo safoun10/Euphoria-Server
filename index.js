@@ -25,8 +25,6 @@ async function run() {
 
         const userCollection = client.db("Euphoria").collection("userCollection");
         const classesCollection = client.db("Euphoria").collection("classes");
-        // const galleryCollectionTwo = client.db("Toytopia").collection("galleryTwo");
-        // const allToyCollection = client.db("Toytopia").collection("AllToys");
 
 
         app.get("/all-users", async (req, res) => {
