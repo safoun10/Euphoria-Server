@@ -29,6 +29,12 @@ async function run() {
         // const allToyCollection = client.db("Toytopia").collection("AllToys");
 
 
+        app.get("/all-users", async (req, res) => {
+            const cursor = userCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
         app.get("/instructors", async (req, res) => {
             const query = { role: "instructor" };
             const cursor = userCollection.find(query);
