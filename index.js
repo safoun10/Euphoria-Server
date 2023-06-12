@@ -25,7 +25,7 @@ async function run() {
         const userCollection = client.db("Euphoria").collection("userCollection");
         const classesCollection = client.db("Euphoria").collection("classes");
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         app.get("/all-users", async (req, res) => {
             const cursor = userCollection.find();
@@ -67,7 +67,7 @@ async function run() {
         });
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
         // app.get("/gallery-two", async (req, res) => {
@@ -110,7 +110,7 @@ async function run() {
         })
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         app.patch("/all-classes", async (req, res) => {
             const db_user = req.body;
@@ -122,11 +122,11 @@ async function run() {
                     status: status
                 }
             }
-            const result = await classesCollection.updateOne(filter, updatedStatus );
+            const result = await classesCollection.updateOne(filter, updatedStatus);
             res.send(result);
         })
 
-        app.patch("/all-users", async (req, res) => {
+        app.patch("/all-users/update-role", async (req, res) => {
             const db_user = req.body;
             const id = db_user.id;
             const role = db_user.role;
@@ -136,11 +136,26 @@ async function run() {
                     role: role
                 }
             }
-            const result = await userCollection.updateOne(filter, updatedStatus );
+            const result = await userCollection.updateOne(filter, updatedStatus);
             res.send(result);
         })
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        app.patch("/all-users/add-selected-classes", async (req, res) => {
+            const db_data = req.body;
+            const user_id = db_data.user_id;
+            const class_id = db_data.class_id;
+            const filter = { _id: new ObjectId(user_id) };
+            const updated = {
+                $push:
+                {
+                    selectedClasses: { class_id }
+                }
+            }
+            const result = await userCollection.updateOne(filter, updated);
+            res.send(result);
+        })
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // app.patch("/all-toys/:ID", async (req, res) => {
         //     const id = req.params.ID;
         //     const query = { _id: new ObjectId(id) }
@@ -170,7 +185,7 @@ async function run() {
         //     res.send(result);
         // })
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You have successfully established connection with MongoDB!");
