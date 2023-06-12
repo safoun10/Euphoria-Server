@@ -126,6 +126,20 @@ async function run() {
             res.send(result);
         })
 
+        app.patch("/all-users", async (req, res) => {
+            const db_user = req.body;
+            const id = db_user.id;
+            const role = db_user.role;
+            const filter = { _id: new ObjectId(id) };
+            const updatedStatus = {
+                $set: {
+                    role: role
+                }
+            }
+            const result = await userCollection.updateOne(filter, updatedStatus );
+            res.send(result);
+        })
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // app.patch("/all-toys/:ID", async (req, res) => {
         //     const id = req.params.ID;
