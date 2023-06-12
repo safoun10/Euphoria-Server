@@ -117,13 +117,12 @@ async function run() {
             const id = db_user.id;
             const status = db_user.status;
             const filter = { _id: new ObjectId(id) };
-            const options = { upsert: true };
             const updatedStatus = {
                 $set: {
                     status: status
                 }
             }
-            const result = await classesCollection.updateOne(filter, updatedStatus , options);
+            const result = await classesCollection.updateOne(filter, updatedStatus );
             res.send(result);
         })
 
