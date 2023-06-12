@@ -25,8 +25,6 @@ async function run() {
         const userCollection = client.db("Euphoria").collection("userCollection");
         const classesCollection = client.db("Euphoria").collection("classes");
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         app.get("/all-users", async (req, res) => {
             const cursor = userCollection.find();
             const result = await cursor.toArray();
@@ -75,29 +73,6 @@ async function run() {
             res.send(result);
         });
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        // app.get("/gallery-two", async (req, res) => {
-        //     const cursor = galleryCollectionTwo.find();
-        //     const result = await cursor.toArray();
-        //     res.send(result);
-        // })
-
-        // app.get("/all-toys", async (req, res) => {
-        //     const cursor = allToyCollection.find();
-        //     const result = await cursor.toArray();
-        //     res.send(result);
-        // })
-
-        // app.get("/all-toys/:ID", async (req, res) => {
-        //     const id = req.params.ID;
-        //     const query = { _id: new ObjectId(id) }
-        //     const result = await allToyCollection.findOne(query);
-        //     res.send(result);
-        // })
-
         app.post("/users", async (req, res) => {
             const newUser = req.body;
             const query = { email: newUser.email };
@@ -117,9 +92,6 @@ async function run() {
             const result = await classesCollection.insertOne(newClass);
             res.send(result);
         })
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         app.patch("/all-classes", async (req, res) => {
             const db_user = req.body;
@@ -163,17 +135,6 @@ async function run() {
             const result = await userCollection.updateOne(filter, updated);
             res.send(result);
         })
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // app.delete("/all-toys/:ID", async (req, res) => {
-        //     const id = req.params.ID;
-        //     const query = { _id: new ObjectId(id) };
-        //     const result = await allToyCollection.deleteOne(query);
-        //     res.send(result);
-        // })
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You have successfully established connection with MongoDB!");
