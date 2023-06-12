@@ -67,6 +67,15 @@ async function run() {
         });
 
 
+        app.get("/top-classes", async (req, res) => {
+            const result = await classesCollection.find()
+                .sort({ students: -1 })
+                .limit(6)
+                .toArray();
+            res.send(result);
+        });
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
