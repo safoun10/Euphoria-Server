@@ -25,7 +25,7 @@ async function run() {
         const userCollection = client.db("Euphoria").collection("userCollection");
         const classesCollection = client.db("Euphoria").collection("classes");
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         app.get("/all-users", async (req, res) => {
             const cursor = userCollection.find();
@@ -76,7 +76,7 @@ async function run() {
         });
 
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // app.get("/gallery-two", async (req, res) => {
@@ -119,7 +119,7 @@ async function run() {
         })
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         app.patch("/all-classes", async (req, res) => {
             const db_user = req.body;
@@ -138,11 +138,11 @@ async function run() {
         app.patch("/all-users/update-role", async (req, res) => {
             const db_user = req.body;
             const id = db_user.id;
-            const role = db_user.role;
+            const feedback = db_user.role;
             const filter = { _id: new ObjectId(id) };
             const updatedStatus = {
                 $set: {
-                    role: role
+                    feedback: feedback
                 }
             }
             const result = await userCollection.updateOne(filter, updatedStatus);
@@ -164,28 +164,7 @@ async function run() {
             res.send(result);
         })
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // app.patch("/all-toys/:ID", async (req, res) => {
-        //     const id = req.params.ID;
-        //     const query = { _id: new ObjectId(id) }
-        //     const options = { upsert: true };
-        //     const updatedToy = req.body;
-        //     const latestToy = {
-        //         $set: {
-        //             toy_name: updatedToy.toy_name,
-        //             photo: updatedToy.photo,
-        //             category: updatedToy.category,
-        //             seller_name: updatedToy.seller_name,
-        //             seller_email: updatedToy.seller_email,
-        //             price: updatedToy.price,
-        //             rating: updatedToy.rating,
-        //             quantity: updatedToy.quantity,
-        //             description: updatedToy.description,
-        //         }
-        //     }
-        //     const result = await allToyCollection.updateOne(query, latestToy, options);
-        //     res.send(result);
-        // })
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // app.delete("/all-toys/:ID", async (req, res) => {
         //     const id = req.params.ID;
@@ -194,7 +173,7 @@ async function run() {
         //     res.send(result);
         // })
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You have successfully established connection with MongoDB!");
