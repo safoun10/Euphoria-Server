@@ -146,7 +146,7 @@ run().catch(console.dir);
 
 
 app.get("/", (req, res) => {
-    res.send("Euphoria is running");
+    res.send("Euphoria Server is running");
 })
 
 app.listen(port, () => {
